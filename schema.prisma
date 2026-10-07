@@ -1,0 +1,38 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Сущности Watchtower. Поле username/пароль хранит сам Wasp в auth-identity,
+// поэтому в User хранить ничего, кроме id и связей, не нужно.
+model User {
+  id    String @id @default(uuid())
+  sites Site[]
+}
+
+model Site {
+  id            String    @id @default(uuid())
+  url           String
+  label         String
+  lastHash      String?
+  lastCheckedAt DateTime?
+
+  owner   User   @relation(fields: [ownerId], references: [id])
+  ownerId String
+
+  checks Check[]
+}
+
+model Check {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  status    String // "ok" | "changed" | "error"
+  note      String?
+
+  site   Site   @relation(fields: [siteId], references: [id])
+  siteId String
+}
