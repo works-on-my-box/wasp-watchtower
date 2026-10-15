@@ -1,6 +1,6 @@
 # Watchtower
 
-A small website change monitor built with [Wasp](https://wasp.sh) 0.25. A logged-in user adds URLs, a recurring PgBoss job fetches each page, hashes its visible text and records a check, and the dashboard lists the sites and the latest checks.
+A small website change monitor built with [Wasp](https://wasp.sh) 0.25. A logged-in user adds URLs, a recurring PgBoss job fetches each page, hashes its page text and records a check, and the dashboard lists the sites and the latest checks.
 
 This is the sample app for a "How to" tutorial about Wasp jobs, auth and email alerts. Work in progress.
 
