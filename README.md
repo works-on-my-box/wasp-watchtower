@@ -20,12 +20,10 @@ This is the sample app for a "How to" tutorial about Wasp jobs, auth and email a
 
 ## Run locally
 
-You need Node.js 24, the Wasp CLI 0.25 and PostgreSQL.
+You need Node.js 24.14.1 or newer, the Wasp CLI 0.25 and PostgreSQL.
 
 ```sh
 npm install -g @wasp.sh/wasp-cli@latest
-# if your npm blocks install scripts, the binary never downloads; then use:
-# npm install -g --allow-scripts=@wasp.sh/wasp-cli @wasp.sh/wasp-cli@latest
 
 # an existing Postgres (or run `wasp start db`, which needs Docker)
 echo 'DATABASE_URL=postgresql://user:password@localhost:5432/watchtower' > .env.server
