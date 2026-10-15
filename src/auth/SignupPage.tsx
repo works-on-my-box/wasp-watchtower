@@ -6,7 +6,7 @@ export function SignupPage() {
     <div style={{ maxWidth: 400, margin: "40px auto", fontFamily: "sans-serif" }}>
       <SignupForm />
       <p>
-        Уже есть аккаунт? <Link to="/login">Вход</Link>
+        Already have an account? <Link to="/login">Log in</Link>
       </p>
     </div>
   );

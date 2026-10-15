@@ -15,33 +15,33 @@ export function DashboardPage() {
     setUrl("");
   }
 
-  if (isLoading) return <div>Загрузка…</div>;
-  if (error) return <div>Ошибка: {error.message}</div>;
+  if (isLoading) return <div>Loading…</div>;
+  if (error) return <div>Error: {error.message}</div>;
 
   return (
     <div style={{ maxWidth: 720, margin: "40px auto", fontFamily: "sans-serif" }}>
       <header style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <h1>Watchtower</h1>
-        <button onClick={logout}>Выйти</button>
+        <button onClick={logout}>Log out</button>
       </header>
 
       <form onSubmit={handleAdd} style={{ display: "flex", gap: 8, margin: "16px 0" }}>
-        <input placeholder="Метка" value={label} onChange={(e) => setLabel(e.target.value)} />
+        <input placeholder="Label" value={label} onChange={(e) => setLabel(e.target.value)} />
         <input placeholder="https://example.com" value={url} onChange={(e) => setUrl(e.target.value)} />
-        <button type="submit">Добавить сайт</button>
+        <button type="submit">Add site</button>
       </form>
 
-      <h2>Мои сайты</h2>
+      <h2>My sites</h2>
       <ul>
         {data!.sites.map((s) => (
           <li key={s.id}>
             <strong>{s.label}</strong> — {s.url}
-            {s.lastCheckedAt && ` (проверен ${new Date(s.lastCheckedAt).toLocaleString()})`}
+            {s.lastCheckedAt && ` (checked ${new Date(s.lastCheckedAt).toLocaleString()})`}
           </li>
         ))}
       </ul>
 
-      <h2>Последние 10 проверок</h2>
+      <h2>Last 10 checks</h2>
       <ul>
         {data!.recentChecks.map((c) => (
           <li key={c.id}>

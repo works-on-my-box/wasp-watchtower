@@ -13,15 +13,15 @@ export default app({
   auth: {
     userEntity: "User",
     methods: {
-      // Самый простой метод: логин и пароль.
+      // The simplest method: username and password.
       usernameAndPassword: {},
     },
     onAuthSucceededRedirectTo: "/",
     onAuthFailedRedirectTo: "/login",
   },
   emailSender: {
-    // Dummy-провайдер печатает письма в консоль сервера — внешняя почта в dev не нужна.
-    // TODO: для продакшена заменить на Resend (provider: "Resend", apiKey из env).
+    // The Dummy provider prints emails to the server console, so dev needs no mail service.
+    // TODO: switch to Resend for production (provider: "Resend", API key from env).
     provider: "Dummy",
   },
   spec: [
@@ -30,7 +30,7 @@ export default app({
     route("SignupRoute", "/signup", page(SignupPage)),
     query(getSites, { entities: ["Site", "Check"] }),
     action(addSite, { entities: ["Site"] }),
-    // PgBoss-джоб: каждые 10 минут обходит сайты и пишет Check.
+    // PgBoss job: every 10 minutes it checks all sites and writes a Check row.
     job(checkSites, {
       executor: "PgBoss",
       entities: ["Site", "Check"],

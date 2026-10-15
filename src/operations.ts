@@ -7,7 +7,7 @@ type GetSitesResult = {
   recentChecks: (Check & { site: Site })[];
 };
 
-// Дашборд: список сайтов пользователя + последние 10 проверок по всем его сайтам.
+// Dashboard: the user's sites plus the last 10 checks across all of them.
 export const getSites: GetSites<void, GetSitesResult> = async (_args, context) => {
   if (!context.user) {
     throw new HttpError(401);

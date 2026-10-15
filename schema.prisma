@@ -7,8 +7,8 @@ generator client {
   provider = "prisma-client-js"
 }
 
-// Сущности Watchtower. Поле username/пароль хранит сам Wasp в auth-identity,
-// поэтому в User хранить ничего, кроме id и связей, не нужно.
+// Watchtower entities. Wasp keeps the username and password in its auth identity,
+// so User only needs an id and its relations.
 model User {
   id    String @id @default(uuid())
   sites Site[]

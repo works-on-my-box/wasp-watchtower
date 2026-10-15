@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import { type CheckSites } from "wasp/server/jobs";
 
-// Грубое приведение HTML к тексту: выкидываем script/style и теги, схлопываем пробелы.
+// Rough HTML-to-text: drop script/style blocks and tags, collapse whitespace.
 function htmlToText(html: string): string {
   return html
     .replace(/<script[\s\S]*?<\/script>/gi, " ")
@@ -11,10 +11,10 @@ function htmlToText(html: string): string {
     .trim();
 }
 
-// PgBoss-джоб: обходит все сайты, считает sha256 от текста страницы,
-// сравнивает с прошлым хешем и пишет Check со статусом ok/changed/error.
-// Input джоба обязан быть JSONObject (PgBoss сериализует аргументы в JSON);
-// аргументов у нас нет, поэтому пустой объект.
+// PgBoss job: visits every site, hashes the page text with sha256,
+// compares it with the previous hash and writes a Check with status ok/changed/error.
+// Job input must be a JSONObject (PgBoss serializes arguments to JSON);
+// the job takes no arguments, hence the empty object type.
 export const checkSites: CheckSites<Record<string, never>, void> = async (_args, context) => {
   const sites = await context.entities.Site.findMany({});
   for (const site of sites) {
@@ -25,7 +25,7 @@ export const checkSites: CheckSites<Record<string, never>, void> = async (_args,
       const res = await fetch(site.url);
       const text = htmlToText(await res.text());
       newHash = createHash("sha256").update(text).digest("hex");
-      // Первая проверка (хеша ещё нет) — базовая линия, считаем ok.
+      // The first check (no hash yet) sets the baseline and counts as ok.
       status = site.lastHash && site.lastHash !== newHash ? "changed" : "ok";
     } catch (e) {
       status = "error";

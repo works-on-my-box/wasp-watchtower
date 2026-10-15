@@ -6,7 +6,7 @@ export function LoginPage() {
     <div style={{ maxWidth: 400, margin: "40px auto", fontFamily: "sans-serif" }}>
       <LoginForm />
       <p>
-        Нет аккаунта? <Link to="/signup">Регистрация</Link>
+        No account? <Link to="/signup">Sign up</Link>
       </p>
     </div>
   );
